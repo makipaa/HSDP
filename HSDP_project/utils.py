@@ -97,3 +97,12 @@ def patient_data (patient_id):
     return relevant_data       
         
 my_data = [patient_data(patients_id[i]) for i in range(len(patients_id))]
+
+# Useful data for hemodonor application
+
+hemodonor_data = []
+for data in my_data:
+    if len(data) != 0:
+        hemodonor_data.append(data)
+    else:
+        pass
