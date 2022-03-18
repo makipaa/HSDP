@@ -1,35 +1,24 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf-8 -*-
+
 import config
+import fhir_client
+
+current_user = None
 
 def validate_user(username, password):
     if (username == config.DONOR["username"]) & (password == config.DONOR["password"]):
+        current_user = config.DONOR
+        config.DONOR["logged_in"] = True
         return "donor"
     elif (username == config.DOCTOR["username"]) & (password == config.DOCTOR["password"]):
+        current_user = config.DOCTOR
+        config.DOCTOR["logged_in"] = True
         return "doctor"
     else:
         return None
 
 
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 12 12:11:16 2022
-
-@author: sqemch
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar  9 15:56:12 2022
-
-@author: marti
-"""
-
-#!/usr/bin/env python2.7
-# -*- coding: utf-8 -*-
-import json
-import requests
-from pprint import pprint
-import sys
-import fhir_client
 
 hemodonor_client = fhir_client.SimpleFHIRClient(
     server_url="http://tutsgnfhir.com",
@@ -37,8 +26,6 @@ hemodonor_client = fhir_client.SimpleFHIRClient(
     server_password="tutfhir1")
 all_patients = hemodonor_client.get_all_patients()
 
-# List all found patients
-pprint("Listing all ({}) found patients...".format(len(all_patients)))
 
 patients_id = []
 
@@ -47,13 +34,6 @@ for patient_record in all_patients:
     patients_id.append(patient_id)
     patient_given = patient_record["name"][0]["given"][0]
     patient_family = patient_record["name"][0]["family"][0]
-    pprint("Patient record id=({}) name=({})"
-           .format(patient_id, patient_given + " " + patient_family))
-
-# Get all data for first patient
-pprint("Getting all data for first patient in the list...")
-all_data_patient_0 = hemodonor_client.get_all_data_for_patient(all_patients[0]["id"])
-pprint(all_data_patient_0)
 
 # select a patient; patient_id is a string
 
