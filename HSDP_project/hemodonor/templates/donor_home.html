@@ -1,4 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<h1> HELLO DONOR</h1>
+
+{% if user.is_authenticated %}
+<h1>Hello donor</h1>
+{%endif%}
+
 {% endblock content%}

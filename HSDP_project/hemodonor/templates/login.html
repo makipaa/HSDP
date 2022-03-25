@@ -1,28 +1,10 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 <style>
-
-  .register_container {
-    margin: 0px 16px 0px 16px;
-  }
-.container {
-  padding: 16px;
-}
-
 span.psw {
   float: right;
   padding-top: 16px;
-}
-
-form {border: 3px solid #f1f1f1;}
-
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
 }
 
 button {
@@ -42,34 +24,27 @@ button:hover {
   color: red;
 }
 </style>
-<form action="/login_submit/" method="POST">
+{% if user.is_authenticated %}
+<meta http-equiv="refresh" content="0; URL=../home/" />
+{%else %}
+
+<div class="content-section">
+  <form method="POST">
     {% csrf_token %}
 
-  <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-    {% if messages %}
-      
-    <ul class="messages">
-      {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-    <button type="submit">Login</button>
-
-   
-
-  </div>
-</form>
-
-<form action="/register/" method="GET">
-  <div class="register_container">
-    <button type="submit" id="register_submit" >Register</button>
-  </div>
-</form>
-
+    <fieldset class="form-gorup">
+      {{form | crispy}}
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Login</button>
+      </div>
+      <div class="border-top pt-3">
+        <small class="text-muted">
+          <a class="ml-2" href="../register/"> Register a new account</a>
+        </small>
+      </div>
+    </fieldset>
+  </form>
+ 
+</div>
+{%endif %}
 {% endblock content%}

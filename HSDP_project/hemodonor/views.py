@@ -1,53 +1,31 @@
 from http.client import NOT_IMPLEMENTED
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
-from utils import current_user
-from utils import validate_user
 from django.contrib import messages
-from utils import patient_data
-
-def login(request):
-    return render(request, 'login.html')
+from .forms import user_register_form
 
 
-def login_submit(request):
-    if request.method == 'POST':
-        username = request.POST.get("uname")
-        psw = request.POST.get("psw")
-
-        validated_user = validate_user(username, psw)
-        if(validated_user is None):
-            messages.add_message(request, messages.INFO, 'Incorrect username or password!')
-            return HttpResponseRedirect('/')
-        else:
-            if(validated_user == 'donor'):
-                return render(request, 'donor_home.html')
-                #return HttpResponseRedirect('/donor_home')
-            else:
-                return doctor_home(request, validated_user)
-   
-    if request.method == 'GET':
-        return HttpResponseRedirect('/')
-
-# TODO
 def register(request):
-    patient = patient_data('2113340')
-    print(patient)
-    return render(request, '<h1> Hello world </h1>')
+    if request.method == 'POST':
+        form = user_register_form(request.POST)
+        if form.is_valid:
+            form.save()
+            username = form.cleaned_data.get('uname')
+            messages.success(request, f'Account created for {username}!')
+            return redirect('home/')
+    else:
+        form = user_register_form()
+    return render(request, 'register.html', {'form':form})
 
 # TODO
-def doctor_home(request, validated_user=None):
-    curr_user = validated_user
-    print(curr_user)
+def home(request):
     if request.method == 'GET':
-        if curr_user == None:
-            return HttpResponseRedirect('/')
+        if not request.user.is_authenticated:
+            return redirect('../login/')
 
-        if curr_user["username"] != 'doctor' | curr_user["logged_in"] is False:
-            return HttpResponseRedirect('/')
-    
-        return render(request, 'doctor_home.html')
-# TODO
-def donor_home(request):
-    NOT_IMPLEMENTED
+
+        if request.user.username == 'doctor':
+            return render(request, 'doctor_home.html')
+        else:
+            return render(request, 'donor_home.html')
     

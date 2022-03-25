@@ -19,7 +19,7 @@ def validate_user(username, password):
         return None
 
 
-
+"""
 hemodonor_client = fhir_client.SimpleFHIRClient(
     server_url="http://tutsgnfhir.com",
     server_user="tutfhir",
@@ -86,3 +86,4 @@ for data in my_data:
         hemodonor_data.append(data)
     else:
         pass
+"""
