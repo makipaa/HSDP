@@ -1,8 +1,125 @@
 {% extends "base.html" %}
 {% block content %}
-
+{% load static %}
 {% if user.is_authenticated %}
-<h1>Hello doctor</h1>
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{%static 'Table_Responsive_v2/images/icons/favicon.ico'%}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{%static 'Table_Responsive_v2/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/css/main.css' %}">
+<!--===============================================================================================-->
+
+<!-- Override bootstrap colours -->
+	<style>
+		.container-table100 {
+			background-color: #ffffff;
+		}
+		.row.header .cell {
+			font-family: Poppins-Regular;
+			font-size: 18px;
+			color: #fff;
+			background-color:#aa0404;
+			line-height: 1.2;
+			font-weight: unset !important;
+
+			padding-top: 19px;
+			padding-bottom: 19px;
+		}
+	
+		.row .cell {
+			font-family: Poppins-Regular;
+			background-color: #c4b9b9;
+			font-size: 15px;
+			color: #0f0f0f;
+			line-height: 1.2;
+			font-weight: unset !important;
+
+			padding-top: 20px;
+			padding-bottom: 20px;
+			border-bottom: 1px solid #f2f2f2;
+		}
+
+
+		.row:hover div{
+			background-color: #f1e4e4;
+			cursor: pointer;
+		}
+		
+		.cell a
+		{
+			display:block;
+			text-decoration:none;
+			color: #0f0f0f;
+		}
+
+	</style>	
+
+	<div class="limiter">
+		<div class="container-table100"> 
+			<div class="wrap-table100">
+					<div class="table">
+
+						<div class="row header">
+							<div class="cell" id="name_cell">
+								Full Name
+							</div>
+							<div class="cell" id="id_cell">
+								Id
+							</div>
+							<div class="cell", id="age_cell">
+								Age
+							</div>
+							<div class="cell", id="elig_cell">
+								Donation eligibility
+							</div>
+						</div>
+
+						{% for donor in donors %}
+						<div class="row">
+							<div class="cell" data-title="Full Name">
+								<a href="test.html">&nbsp; {{donor.user.first_name}} {{donor.user.last_name}}</a>
+							</div>
+							
+							<div class="cell" data-title="Id">
+								{{donor.id}}
+							</div>
+							<div class="cell" data-title="Age">
+								{{donor.age}}
+							</div>
+							<div class="cell" data-title="Donation eligibility">
+								{{donor.hemoglobin}}
+							</div>
+						</div>
+						{%endfor%}
+						
+
+					</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+<!--===============================================================================================-->	
+	<script src="{% static 'Table_Responsive_v2/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'Table_Responsive_v2/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'Table_Responsive_v2/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'Table_Responsive_v2/vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'Table_Responsive_v2/js/main.js' %}"></script>
 {%endif%}
 
 {% endblock content%}

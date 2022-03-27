@@ -2,7 +2,7 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<h1>Hello donor</h1>
+    <h1>Hello {{user_data.hemoglobin}}</h1>
 {%endif%}
 
 {% endblock content%}

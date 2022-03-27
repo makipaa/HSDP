@@ -32,9 +32,12 @@
             .topnav-right a {
                 color: white;
             }
+            #hello_text {
+                color: white;
+            }
         </style>
             
-            <a class="text"> Hello {{user.username}}!</a>
+            <a class="text" id="hello_text"> Hello {{user.first_name}}!</a>
             <div class="topnav-right">
                 <a href="{% url 'logout' %}">Logout</a>
             </div>

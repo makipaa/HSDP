@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from .forms import user_register_form
+from .models import donor_data
 
 
 def register(request):
@@ -19,13 +20,21 @@ def register(request):
 
 # TODO
 def home(request):
+
     if request.method == 'GET':
         if not request.user.is_authenticated:
             return redirect('../login/')
 
-
         if request.user.username == 'doctor':
-            return render(request, 'doctor_home.html')
+            donors = donor_data.objects.all()
+            context = {
+                'donors' : donors
+            }
+            return render(request, 'doctor_home.html', context)
         else:
-            return render(request, 'donor_home.html')
+            data = donor_data.objects.filter(user=request.user).first()
+            context = {
+                'user_data': data
+            }
+            return render(request, 'donor_home.html', context)
     

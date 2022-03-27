@@ -6,7 +6,7 @@ import fhir_client
 
 
 
-"""
+
 hemodonor_client = fhir_client.SimpleFHIRClient(
     server_url="http://tutsgnfhir.com",
     server_user="tutfhir",
@@ -63,19 +63,6 @@ def patient_data (patient_id):
                 
     return relevant_data       
         
-my_data = [patient_data(patients_id[i]) for i in range(len(patients_id))]
-
-# Useful data for hemodonor application
-
-hemodonor_data = []
-for data in my_data:
-    if len(data) != 0:
-        hemodonor_data.append(data)
-    else:
-        pass
-"""
-
-
 # this is the exact same function as before but simply collects the recods in separate lists according to the 
 # type of record 
 
@@ -115,3 +102,17 @@ def patient_data_organized (patient_id):
         return 0,0,0,0,0,0,0 #this is just random values I put to make it work even when there's no enough data to conduct the analysis of eligibility of that patient
     else :
         return heartrate_data, weight_data, bp_data, systolic_data ,diastolic_data, oxigen_saturation, emoglobin_data 
+
+"""
+my_data = [patient_data_organized(patients_id[i]) for i in range(len(patients_id))]
+
+# Useful data for hemodonor application
+
+hemodonor_data = []
+for data in my_data:
+    if len(data) != 0:
+        hemodonor_data.append(data)
+    else:
+        pass
+
+print(len(hemodonor_data))"""
