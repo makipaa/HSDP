@@ -103,7 +103,7 @@ def patient_data_organized (patient_id):
     else :
         return heartrate_data, weight_data, bp_data, systolic_data ,diastolic_data, oxigen_saturation, emoglobin_data 
 
-"""
+'''
 my_data = [patient_data_organized(patients_id[i]) for i in range(len(patients_id))]
 
 # Useful data for hemodonor application
@@ -115,4 +115,4 @@ for data in my_data:
     else:
         pass
 
-print(len(hemodonor_data))"""
+print(len(hemodonor_data))'''
