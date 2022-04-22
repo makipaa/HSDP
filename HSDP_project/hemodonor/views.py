@@ -2,6 +2,7 @@ from http.client import NOT_IMPLEMENTED
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+from HSDP_project.utils import get_latest_measurements
 
 from utils import get_relevant_data
 from .forms import user_register_form
@@ -35,8 +36,10 @@ def home(request):
             return render(request, 'doctor_home.html', context)
         else:
             data = get_relevant_data(request.user.username)
+            latest_measurements = get_latest_measurements(request.user.username)
             context = {
-                'user_data': data
+                'user_data': data,
+                'latest_measurements' : latest_measurements
             }
             return render(request, 'donor_home.html', context)
     

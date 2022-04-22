@@ -41,9 +41,7 @@ def select_patient(patient_id):
 def get_relevant_data(patient_id):
 
     data = {
-        'heart_rate' : [],
         'weight' : [],
-        'bp' : [],
         'systolic' : [],
         'diastolic' : [],
         'oxygen_saturation' : [],
@@ -66,14 +64,8 @@ def get_relevant_data(patient_id):
     all_data = hemodonor_client.get_all_data_for_patient(patient_id)
     for index in all_data:
             resource = index['resource']
-            if resource.get('id', {}).endswith('heartrate'):
-                data['heart_rate'].append(resource['valueQuantity']['value'])
-
-            elif resource.get('id', {}).endswith('weight'):
+            if resource.get('id', {}).endswith('weight'):
                 data['weight'].append(resource['valueQuantity']['value'])
-            
-            #elif resource.get('id', {}).endswith('bp'):
-               # data['bp'].append(resource['valueQuantity']['value'])
 
             elif resource.get('id', {}).endswith('systolic'):
                 data['systolic'].append(resource['valueQuantity']['value'])
@@ -92,7 +84,7 @@ def get_relevant_data(patient_id):
     return data
 
 
-"""def get_latest_measurements(patient_id):
+def get_latest_measurements(patient_id):
     latest_data = {
         'heart_rate' : '',
         'weight' : '',
@@ -106,5 +98,9 @@ def get_relevant_data(patient_id):
     }
     all_data = get_relevant_data(patient_id)
     for key, item in all_data.items():
-        if len(item) == 0:
-"""
+        # Check if there are any measurements
+        if len(item) != 0:
+            # Take the most recent measurement
+            latest_data[key] = item[0]
+
+        return latest_data
