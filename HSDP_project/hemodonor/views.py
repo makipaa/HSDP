@@ -2,6 +2,8 @@ from http.client import NOT_IMPLEMENTED
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
+
+from utils import get_relevant_data
 from .forms import user_register_form
 from .models import donor_data
 
@@ -32,7 +34,7 @@ def home(request):
             }
             return render(request, 'doctor_home.html', context)
         else:
-            data = donor_data.objects.filter(user=request.user).first()
+            data = get_relevant_data(request.user.username)
             context = {
                 'user_data': data
             }
