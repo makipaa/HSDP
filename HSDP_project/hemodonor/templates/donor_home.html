@@ -51,7 +51,6 @@
     <div class="row">
         <div class="column" style="background-color:rgba(170, 170, 170, 0);">
             <h2>Latest Measurements</h2>
-            <p> Date: 16.04.2022</p>
             <br>
             <table>
                 <tr class="first">
@@ -61,17 +60,17 @@
                 </tr>
                 <tr>
                     <td>Hemoglobin (g/dl)</td>
-                    <td>XXX</td>
+                    <td>{{latest_measurements.hemoglobin}}</td>
                     <td>13-20</td>
                 </tr>
                 <tr>
                     <td>Blood pressure (mmHg)</td>
-                    <td>XXX</td>
+                    <td>{{latest_measurements.systolic}}/{{latest_measurements.diastolic}}</td>
                     <td>50-180</td>
                 </tr>
                 <tr>
                     <td>Weight (kg)</td>
-                    <td>XXX</td>
+                    <td>{{latest_measurements.weight}}</td>
                     <td>50</td>
                 </tr>
                 <tr>
@@ -85,7 +84,6 @@
         </div>
         <div class="column" style="background-color:rgba(187, 187, 187, 0);">
             <h2>About You</h2>
-            <p> Last update: 16.04.2022</p>
             <br>
             <table>
                 <tr>

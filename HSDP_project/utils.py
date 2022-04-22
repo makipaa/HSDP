@@ -86,21 +86,19 @@ def get_relevant_data(patient_id):
 
 def get_latest_measurements(patient_id):
     latest_data = {
-        'heart_rate' : '',
         'weight' : '',
-        'bp' : '',
         'systolic' : '',
         'diastolic' : '',
         'oxygen_saturation' : '',
-        'hemoglobin' : '',
-        'gender' : '',
-        'age' : ''
+        'hemoglobin' : ''
     }
     all_data = get_relevant_data(patient_id)
     for key, item in all_data.items():
+        
         # Check if there are any measurements
-        if len(item) != 0:
+        if item and (key != 'gender' and key != 'age'):
             # Take the most recent measurement
             latest_data[key] = item[0]
-
-        return latest_data
+        else:
+            latest_data[key] = 'No data'
+    return latest_data

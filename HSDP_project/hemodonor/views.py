@@ -2,8 +2,8 @@ from http.client import NOT_IMPLEMENTED
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
-from HSDP_project.utils import get_latest_measurements
 
+from utils import get_latest_measurements
 from utils import get_relevant_data
 from .forms import user_register_form
 from .models import donor_data
