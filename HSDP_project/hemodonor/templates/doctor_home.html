@@ -75,30 +75,24 @@
 							<div class="cell" id="id_cell">
 								Id
 							</div>
-							<div class="cell", id="age_cell">
-								Age
-							</div>
 							<div class="cell", id="elig_cell">
 								Donation eligibility
 							</div>
 						</div>
-
-						{% for donor in donors %}
-						<div class="row">
-							<div class="cell" data-title="Full Name">
-								<a href="test.html">&nbsp; {{donor.user.first_name}} {{donor.user.last_name}}</a>
+					
+						{% for user in users %}
+							<div class="row">
+								<div class="cell" data-title="Full Name">
+									<a href="{% url 'doctor_donor' user.data.username %}">&nbsp; {{user.data.first_name}} {{user.data.last_name}}</a>
+								</div>
+								
+								<div class="cell" data-title="Id">
+									{{user.data.username}}
+								</div>
+								<div class="cell" data-title="Donation eligibility">
+									{{user.elig}}
+								</div>
 							</div>
-							
-							<div class="cell" data-title="Id">
-								{{donor.id}}
-							</div>
-							<div class="cell" data-title="Age">
-								{{donor.age}}
-							</div>
-							<div class="cell" data-title="Donation eligibility">
-								{{donor.hemoglobin}}
-							</div>
-						</div>
 						{%endfor%}
 						
 

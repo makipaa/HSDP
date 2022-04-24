@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user.is_superuser %}
+
+<head>
+    <style>
+        table {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        border-collapse: collapse;
+        width: 130%;
+        
+        }
+
+        h2, p {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        p {
+            padding: 0px 0px 1px 0px;
+        }
+        
+        td, th {
+        border: 1px solid #000000;
+        text-align: left;
+        padding: 8px;
+        }
+        
+        .first {
+        background-color: #aa0404;
+        color: rgb(255, 255, 255);
+        }
+
+        .column {
+        float: left;
+        padding: 9px 180px 15px 20px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+    </style>
+</head>
+
+<body>   
+
+    <div class="row">
+        <div class="column" style="background-color:rgba(170, 170, 170, 0);">
+            <h2>Latest Measurements</h2>
+            <br>
+            <table>
+                <tr class="first">
+                    <th>Data</th>
+                    <th>Measured Value</th>
+                    <th>Threshold</th>
+                </tr>
+                <tr>
+                    <td>Hemoglobin (g/dl)</td>
+                    <td>{{latest_measurements.hemoglobin}}</td>
+                    <td>13-20</td>
+                </tr>
+                <tr>
+                    <td>Blood pressure (mmHg)</td>
+                    <td>{{latest_measurements.systolic}}/{{latest_measurements.diastolic}}</td>
+                    <td>50-180</td>
+                </tr>
+                <tr>
+                    <td>Weight (kg)</td>
+                    <td>{{latest_measurements.weight}}</td>
+                    <td>50</td>
+                </tr>
+                <tr>
+                    <td>Donation Interval (weeks) </td>
+                    <td>XXX</td>
+                    <td>8</td>
+                </tr>
+            </table>
+            <br>
+            <button class="add">Add New Data</button>
+        </div>
+        <div class="column" style="background-color:rgba(187, 187, 187, 0);">
+            <h2>About The Donor</h2>
+            <br>
+            <table>
+                <tr>
+                    <td class="first">Personal Information</td>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td>{{personal_info.username}}</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>{{personal_info.last_name}}</td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td>{{personal_info.first_name}}</td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>{{user_data.gender}}</td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td>{{user_data.age}}</td>
+                </tr>
+            </table>
+        </div>
+      </div>
+
+    
+    
+    </body>
+{%endif%}
+
+{% endblock content%}

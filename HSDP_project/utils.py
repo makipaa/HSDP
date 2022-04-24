@@ -94,11 +94,11 @@ def get_latest_measurements(patient_id):
     }
     all_data = get_relevant_data(patient_id)
     for key, item in all_data.items():
-        
         # Check if there are any measurements
-        if item and (key != 'gender' and key != 'age'):
-            # Take the most recent measurement
-            latest_data[key] = item[0]
-        else:
+        if not item:
             latest_data[key] = 'No data'
+        elif key == 'gender' or key == 'age':
+            latest_data[key] = item
+        else:
+            latest_data[key] = item[0]
     return latest_data
