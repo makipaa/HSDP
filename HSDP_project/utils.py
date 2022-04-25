@@ -109,7 +109,7 @@ def condition(weight, diastolic, systolic, hemoglobin, gender, age):
     else:
         if age >= 17:
             if weight >= 50:
-                if systolic <= 180 and diastolic <= 50:
+                if systolic <= 180 and diastolic >= 50:
                     if hemoglobin >= 12.5 <= 20 and gender == 'female':
                         return 'YOU ARE ELIGIBLE TO DONATE!'
                     elif hemoglobin >= 13 <= 20 and gender == 'male':
