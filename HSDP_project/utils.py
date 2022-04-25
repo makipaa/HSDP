@@ -102,3 +102,27 @@ def get_latest_measurements(patient_id):
         else:
             latest_data[key] = item[0]
     return latest_data
+
+def condition(weight, diastolic, systolic, hemoglobin, gender, age):
+    if weight is None or diastolic is None or systolic is None or hemoglobin is None:
+        return "YOUR STATUS IS UNKNOWN: You don't have sufficient data to determine if you're eligible to donate! Please visit your nearest hospital for further testing."
+    else:
+        if age >= 17:
+            if weight >= 50:
+                if systolic <= 180 and diastolic <= 50:
+                    if hemoglobin >= 12.5 <= 20 and gender == 'female':
+                        return 'YOU ARE ELIGIBLE TO DONATE!'
+                    elif hemoglobin >= 13 <= 20 and gender == 'male':
+                        return 'YOU ARE ELIGIBLE TO DONATE!'
+                    else:
+                        return 'YOU ARE NOT ELIGIBLE TO DONATE: The value of your hemoglobin does not allow you to donate your blood.'
+                else:
+                    return 'YOU ARE NOT ELIGIBLE TO DONATE: The value of your blood pressure does not allow you to donate your blood.'
+            else:
+                return "YOU ARE NOT ELIGIBLE TO DONATE: You must weigh more than 50kg to donate your blood."
+        else:
+            return "YOU ARE NOT ELIGIBLE TO DONATE: You are not old enough to donate your blood."
+
+def get_measurement(patient_id,measurement):
+    all_data = get_relevant_data(patient_id)
+    return all_data[measurement]

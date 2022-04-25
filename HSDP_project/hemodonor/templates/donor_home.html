@@ -8,7 +8,7 @@
         table {
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         border-collapse: collapse;
-        width: 130%;
+        width: 120%;
         
         }
 
@@ -56,7 +56,7 @@
                 <tr class="first">
                     <th>Data</th>
                     <th>Measured Value</th>
-                    <th>Threshold</th>
+                    <th>Eligibility Condition</th>
                 </tr>
                 <tr>
                     <td>Hemoglobin (g/dl)</td>
@@ -64,23 +64,24 @@
                     <td>13-20</td>
                 </tr>
                 <tr>
-                    <td>Blood pressure (mmHg)</td>
-                    <td>{{latest_measurements.systolic}}/{{latest_measurements.diastolic}}</td>
-                    <td>50-180</td>
+                    <td>Systolic Blood Pressure (mmHg)</td>
+                    <td>{{latest_measurements.systolic}}</td>
+                    <td>Below 180</td>
+                </tr>
+                <tr>
+                    <td>Diastolic Blood Pressure (mmHg)</td>
+                    <td>{{latest_measurements.diastolic}}</td>
+                    <td>Below 50</td>
                 </tr>
                 <tr>
                     <td>Weight (kg)</td>
                     <td>{{latest_measurements.weight}}</td>
                     <td>50</td>
                 </tr>
-                <tr>
-                    <td>Donation Interval (weeks) </td>
-                    <td>XXX</td>
-                    <td>8</td>
-                </tr>
             </table>
             <br>
             <button class="add">Add New Data</button>
+            <button class="add"> <a href="{% url 'donor_past_data' %}">See Past Measurements</a></button>
         </div>
         <div class="column" style="background-color:rgba(187, 187, 187, 0);">
             <h2>About You</h2>
@@ -112,9 +113,7 @@
             </table>
         </div>
       </div>
-
-    
-    
+    <p><strong><font size="+3">{{eligbility}}</font></strong></p>
     </body>
 {%endif%}
 

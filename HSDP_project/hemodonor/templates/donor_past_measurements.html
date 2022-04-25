@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if user.is_superuser %}
+{% if user.is_authenticated %}
 
 <head>
     <style>
         table {
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         border-collapse: collapse;
-        width: 130%;
+        width: 80%;
         
         }
 
@@ -50,56 +50,53 @@
 
     <div class="row">
         <div class="column" style="background-color:rgba(170, 170, 170, 0);">
-            <h2>Latest Measurements</h2>
-            <br>
+            <h2>Past Measurements (from recent to old)</h2>
             <table>
-                <tr class="first">
-                    <th>Data</th>
-                    <th>Measured Value</th>
-                    <th>Eligibility Condition</th>
+                <tr>
+                    <th class="first">Hemoglobin (g/dl)</th>
+                    {% for hemoglobin in hemoglobin_data %}
+                        <td>{{hemoglobin}}</td>
+                    {%endfor%}
                 </tr>
                 <tr>
-                    <td>Hemoglobin (g/dl)</td>
-                    <td>{{latest_measurements.hemoglobin}}</td>
-                    <td>13-20</td>
+                    <th class="first">Systolic Blood Pressure (mmHg)</th>
+                    {% for systolic in systolic_data %}
+                        <td>{{systolic}}</td>
+                    {%endfor%}
                 </tr>
                 <tr>
-                    <td>Diastolic Blood Pressure (mmHg)</td>
-                    <td>{{latest_measurements.diastolic}}</td>
-                    <td>Below 50</td>
+                    <th class="first">Diastolic Blood Pressure (mmHg)</th>
+                    {% for diastolic in diastolic_data %}
+                        <td>{{diastolic}}</td>
+                    {%endfor%}
                 </tr>
                 <tr>
-                    <td>Weight (kg)</td>
-                    <td>{{latest_measurements.weight}}</td>
-                    <td>Above 50</td>
-                </tr>
-                <tr>
-                    <td>Weight (kg)</td>
-                    <td>{{latest_measurements.weight}}</td>
-                    <td>50</td>
+                    <th class="first">Weight (kg)</th>
+                    {% for weight in weight_data %}
+                        <td>{{weight}}</td>
+                    {%endfor%}
                 </tr>
             </table>
             <br>
-            <button class="add">Add New Data</button>
+            <button class="add">Return to Recent Measurements</button>
         </div>
         <div class="column" style="background-color:rgba(187, 187, 187, 0);">
-            <h2>About The Donor</h2>
-            <br>
+            <h2>About You</h2>
             <table>
                 <tr>
                     <td class="first">Personal Information</td>
                 </tr>
                 <tr>
                     <td>ID</td>
-                    <td>{{personal_info.username}}</td>
+                    <td>{{user.username}}</td>
                 </tr>
                 <tr>
                     <td>Last Name</td>
-                    <td>{{personal_info.last_name}}</td>
+                    <td>{{user.last_name}}</td>
                 </tr>
                 <tr>
                     <td>First Name</td>
-                    <td>{{personal_info.first_name}}</td>
+                    <td>{{user.first_name}}</td>
                 </tr>
                 <tr>
                     <td>Gender</td>
@@ -113,8 +110,6 @@
         </div>
       </div>
 
-    
-    
     </body>
 {%endif%}
 

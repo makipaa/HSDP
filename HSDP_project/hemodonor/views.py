@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 
 from utils import get_latest_measurements
 from utils import get_relevant_data
-from hemodonor_condition import condition
+from utils import condition
+from utils import get_measurement
 from .forms import user_register_form
 from .models import donor_data
 
@@ -36,8 +37,7 @@ def home(request):
             all_users = []
             for user_obj in list_of_users:
                 donor_data = get_latest_measurements(user_obj.username)
-                 # TODO Replace the dummy values
-                #eligbility = condition(10, donor_data['age'], donor_data['weight'], 60, donor_data['hemoglobin'], donor_data['gender'])
+                
                 all_users.append({'data' : user_obj, 'elig' : 0})
 
             context = {
@@ -47,9 +47,11 @@ def home(request):
         else:
             data = get_relevant_data(request.user.username)
             latest_measurements = get_latest_measurements(request.user.username)
+            eligbility = condition(latest_measurements['weight'], latest_measurements['diastolic'], latest_measurements['systolic'], latest_measurements['hemoglobin'], latest_measurements['gender'], latest_measurements['age'])
             context = {
                 'user_data': data,
-                'latest_measurements' : latest_measurements
+                'latest_measurements' : latest_measurements,
+                'eligbility': eligbility
             }
             return render(request, 'donor_home.html', context)
     
@@ -65,3 +67,19 @@ def doctor_donor(request, donor_id):
         'personal_info' : personal_info
     }
     return render(request, 'doctor_donor_view.html', context)
+
+def donor_full_data(request):
+    if not request.user.is_superuser:
+        return redirect('../../home')
+    weight_data = get_measurement('weight')
+    systolic_data = get_measurement('systolic')
+    diastolic_data = get_measurement('diastolic')
+    hemoglobin_data = get_measurement('hemoglobin')
+
+    context = {
+        'weight_data': weight_data,
+        'systolic_data' : systolic_data,
+        'diastolic_data' : diastolic_data,
+        'hemoglobin_data': hemoglobin_data
+    }
+    return render(request, 'donor_past_measurements.html', context)
