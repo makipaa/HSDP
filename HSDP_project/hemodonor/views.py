@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from utils import get_latest_measurements
 from utils import get_relevant_data
 from utils import condition
+from utils import condition_doctor_view
 from utils import get_measurement
 from .forms import user_register_form
 from .models import donor_data
@@ -60,7 +61,7 @@ def doctor_donor(request, donor_id):
         return redirect('../../home')
     data = get_relevant_data(donor_id)
     latest_measurements = get_latest_measurements(donor_id)
-    eligbility = condition(latest_measurements['weight'], latest_measurements['diastolic'], latest_measurements['systolic'], latest_measurements['hemoglobin'], latest_measurements['gender'], latest_measurements['age'])
+    eligbility = condition_doctor_view(latest_measurements['weight'], latest_measurements['diastolic'], latest_measurements['systolic'], latest_measurements['hemoglobin'], latest_measurements['gender'], latest_measurements['age'])
     personal_info = User.objects.filter(username=donor_id).first()
     context = {
         'user_data': data,
