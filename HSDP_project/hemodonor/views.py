@@ -60,22 +60,77 @@ def doctor_donor(request, donor_id):
         return redirect('../../home')
     data = get_relevant_data(donor_id)
     latest_measurements = get_latest_measurements(donor_id)
+    eligbility = condition(latest_measurements['weight'], latest_measurements['diastolic'], latest_measurements['systolic'], latest_measurements['hemoglobin'], latest_measurements['gender'], latest_measurements['age'])
     personal_info = User.objects.filter(username=donor_id).first()
     context = {
         'user_data': data,
         'latest_measurements' : latest_measurements,
-        'personal_info' : personal_info
+        'personal_info' : personal_info,
+        'eligbility': eligbility
     }
     return render(request, 'doctor_donor_view.html', context)
 
 def donor_full_data(request):
-    if not request.user.is_superuser:
-        return redirect('../../home')
-    weight_data = get_measurement('weight')
-    systolic_data = get_measurement('systolic')
-    diastolic_data = get_measurement('diastolic')
-    hemoglobin_data = get_measurement('hemoglobin')
-
+    if not request.user.is_authenticated:
+        return redirect('../login/')
+    weight_data = get_measurement(request.user.username,'weight')
+    systolic_data = get_measurement(request.user.username,'systolic')
+    diastolic_data = get_measurement(request.user.username,'diastolic')
+    hemoglobin_data = get_measurement(request.user.username,'hemoglobin')
+    iteration = 0
+    
+    if len(weight_data) > len(systolic_data):
+        iteration = len(weight_data) - len(systolic_data)
+        for i in range(iteration):
+            systolic_data.append("No data")
+    if len(weight_data) > len(diastolic_data):
+        iteration = len(weight_data) - len(diastolic_data)
+        for i in range(iteration):
+            diastolic_data.append("No data")
+    if len(weight_data) > len(hemoglobin_data):
+        iteration = len(weight_data) - len(hemoglobin_data)
+        for i in range(iteration):
+            hemoglobin_data.append("No data")
+    
+    if len(systolic_data) > len(weight_data):
+        iteration = len(systolic_data) - len(weight_data)
+        for i in range(iteration):
+            weight_data.append("No data")
+    if len(systolic_data) > len(diastolic_data):
+        iteration = len(systolic_data) - len(diastolic_data)
+        for i in range(iteration):
+            diastolic_data.append("No data")
+    if len(systolic_data) > len(hemoglobin_data):  
+        iteration = len(systolic_data) - len(hemoglobin_data) 
+        for i in range(iteration):
+            hemoglobin_data.append("No data") 
+    
+    if len(diastolic_data) > len(weight_data):
+        iteration = len(diastolic_data) - len(weight_data)
+        for i in range(iteration):
+            weight_data.append("No data")
+    if len(diastolic_data) > len(systolic_data):
+        iteration = len(diastolic_data) - len(systolic_data)
+        for i in range(iteration):
+            systolic_data.append("No data")
+    if len(diastolic_data) > len(hemoglobin_data):
+        iteration = len(diastolic_data) - len(hemoglobin_data)   
+        for i in range(iteration):
+            hemoglobin_data.append("No data") 
+    
+    if len(hemoglobin_data) > len(weight_data):
+        iteration = len(hemoglobin_data) - len(weight_data)
+        for i in range(iteration):
+            weight_data.append("No data")
+    if len(hemoglobin_data) > len(systolic_data):
+        iteration = len(hemoglobin_data) - len(systolic_data)
+        for i in range(iteration):
+            systolic_data.append("No data")
+    if len(hemoglobin_data) > len(diastolic_data):  
+        iteration = len(hemoglobin_data) - len(diastolic_data) 
+        for i in range(iteration):
+            diastolic_data.append("No data") 
+    
     context = {
         'weight_data': weight_data,
         'systolic_data' : systolic_data,

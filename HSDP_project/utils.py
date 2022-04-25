@@ -78,7 +78,7 @@ def get_relevant_data(patient_id):
 
             elif resource.get('id', {}).endswith('lab'):
                 lab = index['resource']
-                if lab.get('code', {}).get('text') == 'Hgb Bld-mCnc':         
+                if lab.get('code', {}).get('text') == 'Hgb Bld-mCnc':     
                     data['hemoglobin'].append(resource['valueQuantity']['value'])
 
     return data

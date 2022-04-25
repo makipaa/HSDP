@@ -8,7 +8,7 @@
         table {
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         border-collapse: collapse;
-        width: 80%;
+        width: 50%;
         
         }
 
@@ -78,35 +78,7 @@
                 </tr>
             </table>
             <br>
-            <button class="add">Return to Recent Measurements</button>
-        </div>
-        <div class="column" style="background-color:rgba(187, 187, 187, 0);">
-            <h2>About You</h2>
-            <table>
-                <tr>
-                    <td class="first">Personal Information</td>
-                </tr>
-                <tr>
-                    <td>ID</td>
-                    <td>{{user.username}}</td>
-                </tr>
-                <tr>
-                    <td>Last Name</td>
-                    <td>{{user.last_name}}</td>
-                </tr>
-                <tr>
-                    <td>First Name</td>
-                    <td>{{user.first_name}}</td>
-                </tr>
-                <tr>
-                    <td>Gender</td>
-                    <td>{{user_data.gender}}</td>
-                </tr>
-                <tr>
-                    <td>Age</td>
-                    <td>{{user_data.age}}</td>
-                </tr>
-            </table>
+            <button class="add"> <a href="{% url 'home' %}" style="text-decoration: none;">Return to Recent Measurements</a></button>
         </div>
       </div>
 

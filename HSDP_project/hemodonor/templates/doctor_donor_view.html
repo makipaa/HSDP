@@ -51,7 +51,6 @@
     <div class="row">
         <div class="column" style="background-color:rgba(170, 170, 170, 0);">
             <h2>Latest Measurements</h2>
-            <br>
             <table>
                 <tr class="first">
                     <th>Data</th>
@@ -69,14 +68,14 @@
                     <td>Below 50</td>
                 </tr>
                 <tr>
-                    <td>Weight (kg)</td>
-                    <td>{{latest_measurements.weight}}</td>
-                    <td>Above 50</td>
+                    <td>Systolic Blood Pressure (mmHg)</td>
+                    <td>{{latest_measurements.diastolic}}</td>
+                    <td>Below 180</td>
                 </tr>
                 <tr>
                     <td>Weight (kg)</td>
                     <td>{{latest_measurements.weight}}</td>
-                    <td>50</td>
+                    <td>Above 50</td>
                 </tr>
             </table>
             <br>
@@ -84,7 +83,6 @@
         </div>
         <div class="column" style="background-color:rgba(187, 187, 187, 0);">
             <h2>About The Donor</h2>
-            <br>
             <table>
                 <tr>
                     <td class="first">Personal Information</td>
@@ -114,7 +112,7 @@
       </div>
 
     
-    
+      <p><strong><font size="+3">{{eligbility}}</font></strong></p>
     </body>
 {%endif%}
 
