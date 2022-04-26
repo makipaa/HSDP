@@ -42,6 +42,15 @@
         display: table;
         clear: both;
         }
+        button {
+            background-color: #aa0404;
+            color: white;
+            
+            margin: 3px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 50%;
+        }
 
     </style>
 </head>
@@ -80,7 +89,7 @@
             </table>
             <br>
             <button class="add">Add New Data</button>
-            <button class="add"> <a href="{% url 'donor_past_data' %}" style="text-decoration: none;">See Past Measurements</a></button>
+            <button class="add"> <a href="{% url 'donor_past_data' %}" style="text-decoration: none; color: white;">See Past Measurements</a></button>
         </div>
         <div class="column" style="background-color:rgba(187, 187, 187, 0);">
             <h2>About You</h2>

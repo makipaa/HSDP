@@ -42,6 +42,16 @@
         display: table;
         clear: both;
         }
+        button {
+            background-color: #aa0404;
+            color: white;
+            
+            margin: 3px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 50%;
+        }
+
 
     </style>
 </head>
@@ -69,7 +79,7 @@
                 </tr>
                 <tr>
                     <td>Systolic Blood Pressure (mmHg)</td>
-                    <td>{{latest_measurements.diastolic}}</td>
+                    <td>{{latest_measurements.systolic}}</td>
                     <td>Below 180</td>
                 </tr>
                 <tr>
@@ -80,6 +90,9 @@
             </table>
             <br>
             <button class="add">Add New Data</button>
+            <button class="add"> <a href="{% url 'doctor_donor_full_data'  personal_info.username%}" style="text-decoration: none; color: white;">See Past Measurements</a></button>
+          
+            
         </div>
         <div class="column" style="background-color:rgba(187, 187, 187, 0);">
             <h2>About The Donor</h2>

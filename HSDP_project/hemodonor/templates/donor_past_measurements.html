@@ -1,86 +1,135 @@
 {% extends "base.html" %}
 {% block content %}
-
+{% load static %}
 {% if user.is_authenticated %}
 
-<head>
-    <style>
-        table {
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        border-collapse: collapse;
-        width: 50%;
+<body>
+      <!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{%static 'Table_Responsive_v2/images/icons/favicon.ico'%}"/>
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{%static 'Table_Responsive_v2/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/css/util.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'Table_Responsive_v2/css/main.css' %}">
+    <!--===============================================================================================-->
+    
+    <!-- Override bootstrap colours -->
+    
+        <style>
+            .container-table100 {
+                background-color: #ffffff;
+            }
+            .row.header .cell {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                font-size: 18px;
+                color: #fff;
+                background-color:#aa0404;
+                line-height: 1.2;
+                font-weight: unset !important;
+    
+                padding-top: 19px;
+                padding-bottom: 19px;
+            }
         
-        }
-
-        h2, p {
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
-
-        p {
-            padding: 0px 0px 1px 0px;
-        }
+            .row .cell {
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                background-color: #c4b9b9;
+                font-size: 15px;
+                color: #0f0f0f;
+                line-height: 1.2;
+                font-weight: unset !important;
+    
+                padding-top: 20px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #f2f2f2;
+            }
+    
+    
+            .row:hover div{
+                background-color: #f1e4e4;
+                cursor: pointer;
+            }
+            
+            .cell a
+            {
+                display:block;
+                text-decoration:none;
+                color: #0f0f0f;
+            }
+    
+        </style>
+        {% if user.is_superuser %}
+            <h2 style="text-align:center; margin: 15px 0px;"> {{personal_info.first_name}}'s Past Measurements (from recent to old) </h2>
+        {%else%}
+            <h2 style="text-align:center; margin: 15px 0px;">Past Measurements (from recent to old) </h2>
+        {%endif%}
         
-        td, th {
-        border: 1px solid #000000;
-        text-align: left;
-        padding: 8px;
-        }
-        
-        .first {
-        background-color: #aa0404;
-        color: rgb(255, 255, 255);
-        }
+        <div class="limiter">
+            <div class="container-table100"> 
+                <div class="wrap-table100">
+                   
+                        <div class="table">
+                            <div class="row header">
+                                <div class="cell" id="hg_cell">
+                                    Hemoglobin (g/dl)
+                                </div>
+                                <div class="cell" id="sys_cell">
+                                    Systolic Blood Pressure (mmHg)
+                                </div>
+                                <div class="cell", id="dia_cell">
+                                    Diastolic Blood Pressure (mmHg)
+                                </div>
+                                <div class="cell", id="w_cell">
+                                    Weight (kg)
+                                </div>
+                            </div>
+                        
+                            {% for meas in all_data %}
+                                <div class="row">
+                                    <div class="cell" data-title="hg">
+                                        {{meas.hg}}
+                                    </div>
+                                    
+                                    <div class="cell" data-title="sys_cell">
+                                        {{meas.sys}}
+                                    </div>
 
-        .column {
-        float: left;
-        padding: 9px 180px 15px 20px;
-        }
+                                    <div class="cell" data-title="dia_cell">
+                                        {{meas.dia}}
+                                    </div>
 
-        /* Clear floats after the columns */
-        .row:after {
-        content: "";
-        display: table;
-        clear: both;
-        }
-
-    </style>
-</head>
-
-<body>   
-
-    <div class="row">
-        <div class="column" style="background-color:rgba(170, 170, 170, 0);">
-            <h2>Past Measurements (from recent to old)</h2>
-            <table>
-                <tr>
-                    <th class="first">Hemoglobin (g/dl)</th>
-                    {% for hemoglobin in hemoglobin_data %}
-                        <td>{{hemoglobin}}</td>
-                    {%endfor%}
-                </tr>
-                <tr>
-                    <th class="first">Systolic Blood Pressure (mmHg)</th>
-                    {% for systolic in systolic_data %}
-                        <td>{{systolic}}</td>
-                    {%endfor%}
-                </tr>
-                <tr>
-                    <th class="first">Diastolic Blood Pressure (mmHg)</th>
-                    {% for diastolic in diastolic_data %}
-                        <td>{{diastolic}}</td>
-                    {%endfor%}
-                </tr>
-                <tr>
-                    <th class="first">Weight (kg)</th>
-                    {% for weight in weight_data %}
-                        <td>{{weight}}</td>
-                    {%endfor%}
-                </tr>
-            </table>
-            <br>
-            <button class="add"> <a href="{% url 'home' %}" style="text-decoration: none;">Return to Recent Measurements</a></button>
+                                    <div class="cell" data-title="w_cell">
+                                        {{meas.weight}}
+                                    </div>
+                                </div>
+                            {%endfor%}
+                            
+    
+                        </div>
+                </div>
+            </div>
         </div>
-      </div>
+    
+    
+        
+    
+    <!--===============================================================================================-->	
+        <script src="{% static 'Table_Responsive_v2/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <!--===============================================================================================-->
+        <script src="{% static 'Table_Responsive_v2/vendor/bootstrap/js/popper.js' %}"></script>
+        <script src="{% static 'Table_Responsive_v2/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <!--===============================================================================================-->
+        <script src="{% static 'Table_Responsive_v2/vendor/select2/select2.min.js' %}"></script>
+    <!--===============================================================================================-->
+        <script src="{% static 'Table_Responsive_v2/js/main.js' %}"></script>
 
     </body>
 {%endif%}

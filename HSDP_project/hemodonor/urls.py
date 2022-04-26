@@ -9,5 +9,6 @@ urlpatterns = [
     path('register/', views.register),
     path('home/', views.home, name='home'),
     path('donor_home/<donor_id>/', views.doctor_donor, name='doctor_donor'),
-    path('donor_past_data/', views.donor_full_data, name='donor_past_data')
+    path('donor_past_data/', views.donor_full_data, name='donor_past_data'),
+    path('donor_past_data/<donor_id>/', views.doctor_donor_full_data, name='doctor_donor_full_data')
 ]
