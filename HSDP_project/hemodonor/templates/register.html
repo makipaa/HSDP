@@ -6,12 +6,28 @@
     .content-section {
         padding-left: 20px;
     }
+    button {
+        background-color: #aa0404;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
 </style>
-
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert -{{message.tags}}">
+            {{message}}
+        </div>
+    {% endfor %}
+{%endif%}
 <fieldset class ="register-form">
     <form method='POST'>
         {%csrf_token %}
         {{form | crispy}}
+        <button class="btn btn-outline-info" type="submit">Login</button>
     </form>
     
 </fieldset>
