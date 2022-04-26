@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<head>
+    <style>
+        table {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+        
+        }
+
+        h2, p {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        p {
+            padding: 0px 0px 1px 0px;
+        }
+        
+        td, th {
+        border: 1px solid #000000;
+        text-align: left;
+        padding: 8px;
+        }
+        
+        .first {
+        background-color: #aa0404;
+        color: rgb(255, 255, 255);
+        }
+
+        .column {
+        float: left;
+        padding: 9px 180px 15px 20px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+    </style>
+</head>
+
+<body>   
+
+    <div class="row">
+        <div class="column" style="background-color:rgba(170, 170, 170, 0);">
+            <h2>Past Measurements (from recent to old)</h2>
+            <table>
+                <tr>
+                    <th class="first">Hemoglobin (g/dl)</th>
+                    {% for hemoglobin in hemoglobin_data %}
+                        <td>{{hemoglobin}}</td>
+                    {%endfor%}
+                </tr>
+                <tr>
+                    <th class="first">Systolic Blood Pressure (mmHg)</th>
+                    {% for systolic in systolic_data %}
+                        <td>{{systolic}}</td>
+                    {%endfor%}
+                </tr>
+                <tr>
+                    <th class="first">Diastolic Blood Pressure (mmHg)</th>
+                    {% for diastolic in diastolic_data %}
+                        <td>{{diastolic}}</td>
+                    {%endfor%}
+                </tr>
+                <tr>
+                    <th class="first">Weight (kg)</th>
+                    {% for weight in weight_data %}
+                        <td>{{weight}}</td>
+                    {%endfor%}
+                </tr>
+            </table>
+            <br>
+            <button class="add"> <a href="{% url 'home' %}" style="text-decoration: none;">Return to Recent Measurements</a></button>
+        </div>
+      </div>
+
+    </body>
+{%endif%}
+
+{% endblock content%}

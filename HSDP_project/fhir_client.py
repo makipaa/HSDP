@@ -94,6 +94,10 @@ class hemodonor_FHIR_client(object):
             else:
                 latest_data[key] = item[0]
         return latest_data
+    
+    def get_measurement(self, patient_id,measurement):
+        all_data = self.get_relevant_data(patient_id)
+        return all_data[measurement]
 
 hemodonor_client = hemodonor_FHIR_client(
     server_url="http://tutsgnfhir.com",
